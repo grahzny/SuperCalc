@@ -1,0 +1,50 @@
+{
+  "country": "AU",
+  "financialYear": "2025-26",
+  "lastUpdated": "2026-02-11",
+  "superGuarantee": {
+    "rate": 0.12
+  },
+  "contributionCaps": {
+    "concessional": 30000,
+    "nonConcessional": 120000
+  },
+  "nonConcessionalBringForward": {
+    "maxAgeAtStartOfFinancialYear": 74,
+    "tiers": [
+      {
+        "minBalanceInclusive": 0,
+        "maxBalanceExclusive": 1760000,
+        "capMultiplier": 3
+      },
+      {
+        "minBalanceInclusive": 1760000,
+        "maxBalanceExclusive": 1880000,
+        "capMultiplier": 2
+      },
+      {
+        "minBalanceInclusive": 1880000,
+        "maxBalanceExclusive": 2000000,
+        "capMultiplier": 1
+      },
+      {
+        "minBalanceInclusive": 2000000,
+        "maxBalanceExclusive": null,
+        "capMultiplier": 0
+      }
+    ]
+  },
+  "division293": {
+    "threshold": 250000,
+    "rate": 0.15
+  },
+  "contributionsTax": {
+    "concessionalRate": 0.15
+  },
+  "defaults": {
+    "inflation": 0.025,
+    "nominalReturn": 0.065,
+    "feePercent": 0.007,
+    "adminFeeAnnual": 120
+  }
+}
