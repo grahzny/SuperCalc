@@ -8,9 +8,9 @@ import { activeRules } from "@/lib/rules";
 import type { FAQ } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "Superannuation Calculator Australia",
+  title: "Superannuation Calculator Australia - Free Retirement Projection",
   description:
-    "Estimate your Australian super with spouse support, Division 293, contribution caps and a nominal or today's dollars inflation toggle."
+    "Free Australian superannuation calculator. Project your retirement balance for you and your spouse with contributions, Division 293, fees and inflation adjustments."
 };
 
 const faqs: FAQ[] = [
@@ -22,7 +22,7 @@ const faqs: FAQ[] = [
   {
     question: "What is the Super Guarantee rate in Australia?",
     answer:
-      "For the 2025-26 financial year, the Super Guarantee rate used here is 12% of ordinary time earnings. This aligns with current Australian settings. Employers generally contribute this amount on eligible earnings, and it forms part of your concessional contribution total. Individual circumstances can differ, so you should confirm your own super arrangements with payroll records and ATO guidance."
+      "For the 2025-26 financial year, the Super Guarantee rate used here is 12% of ordinary time earnings. This aligns with current Australian settings. Employers generally contribute this amount on eligible earnings, and it forms part of your concessional contribution total for cap purposes. Individual circumstances can differ, so you should confirm your own super arrangements with payroll records and ATO guidance."
   },
   {
     question: "What is the concessional contributions cap?",
@@ -71,23 +71,25 @@ export default function SuperannuationCalculatorPage() {
     <>
       <JsonLdFaq faqs={faqs} />
       <h1>Superannuation Calculator Australia</h1>
+      <p className="page-intro">
+        Estimate your combined household retirement balance with year-by-year projections. Includes employer super,
+        salary sacrifice, taxes, fees and inflation adjustments.
+      </p>
       <SuperannuationCalculator rules={activeRules} />
       <section className="card">
+        <h2>About This Calculator</h2>
         <p>
-          Use this Australian superannuation calculator to estimate retirement balances across both partners with one
-          transparent, rules-driven model. The tool applies current Super Guarantee settings, concessional and
-          non-concessional contribution caps, standard contributions tax and individual Division 293 impacts. You can
-          switch between nominal future dollars and today&apos;s dollars for clearer long-term planning. Results include
-          annual projections, cap warnings and tax breakdowns so you can test contribution strategies before
-          implementation. It is designed for education and scenario comparison only and should be paired with current
-          ATO information and personal professional advice.
+          This tool uses the FY {activeRules.financialYear} rates and thresholds to project super balances for two people.
+          All calculations run locally in your browser &mdash; nothing is sent to a server. You can switch between
+          future dollars and today&apos;s dollars to see your balance in different terms. Adjust salary sacrifice,
+          personal contributions and assumptions to compare different strategies.
         </p>
         <p>
-          Last updated: <strong>{activeRules.lastUpdated}</strong>
+          <span className="updated-badge">Updated {activeRules.lastUpdated}</span>
         </p>
       </section>
       <section className="card">
-        <h2>How to read the projection</h2>
+        <h2>How to Read the Projection</h2>
         <p>
           Start with realistic salary and balance inputs for each person, then adjust salary sacrifice, personal
           deductible contributions, fees and return assumptions. The yearly table shows combined outcomes by age while

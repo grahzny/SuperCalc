@@ -8,9 +8,9 @@ import { activeRules } from "@/lib/rules";
 import type { FAQ } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "Non-concessional Contributions Cap Australia",
+  title: "Non-concessional Contributions Cap Australia - After-Tax Super Limit",
   description:
-    "Learn how the Australian non-concessional contributions cap works and check annual after-tax super contributions."
+    "Free non-concessional contributions cap checker. See your after-tax super contribution room including bring-forward eligibility for FY 2025-26."
 };
 
 const faqs: FAQ[] = [
@@ -50,24 +50,26 @@ export default function NonConcessionalCapPage() {
   return (
     <>
       <JsonLdFaq faqs={faqs} />
-      <h1>Non-concessional Contributions Cap Australia</h1>
+      <h1>Non-concessional Contributions Cap</h1>
+      <p className="page-intro">
+        Check your after-tax super contribution room. This tool shows your annual cap and whether you&apos;re
+        eligible for the bring-forward rule based on your age and total super balance.
+      </p>
       <NonConcessionalCapChecker rules={activeRules} />
       <section className="card">
+        <h2>Understanding the Cap</h2>
         <p>
-          This non-concessional contributions cap page helps you estimate whether annual after-tax super contributions
-          are within the current Australian limit. Enter your expected after-tax amount to compare against the standard
-          annual cap and quickly identify potential excess risk. The page also explains how non-concessional
-          contributions differ from concessional contributions and where the bring-forward rule may become relevant.
-          Results are intentionally simple and transparent, designed for planning rather than legal determination.
-          Because super contribution rules can be detailed and personal, always confirm decisions with current ATO
-          guidance and licensed advice before making significant transactions.
+          Non-concessional contributions are after-tax money you put into super voluntarily. The annual limit is
+          ${activeRules.contributionCaps.nonConcessional.toLocaleString()}, but if you&apos;re eligible, the bring-forward
+          rule lets you contribute up to 3 years&apos; worth at once. Your eligibility depends on your age at the
+          start of the financial year and your total super balance.
         </p>
         <p>
-          Last updated: <strong>{activeRules.lastUpdated}</strong>
+          <span className="updated-badge">Updated {activeRules.lastUpdated}</span>
         </p>
       </section>
       <section className="card">
-        <h2>Scope of this checker</h2>
+        <h2>Scope of This Checker</h2>
         <p>
           This tool models non-concessional cap size using age and total-balance tiers, including bring-forward cap
           multipliers where eligible. It does not track whether a bring-forward period was already triggered in prior

@@ -8,9 +8,9 @@ import { activeRules } from "@/lib/rules";
 import type { FAQ } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "Concessional Contributions Cap Australia",
+  title: "Concessional Contributions Cap Australia - Before-Tax Super Limit",
   description:
-    "Understand the Australian concessional contributions cap, what counts, and estimate whether your annual contributions exceed the limit."
+    "Free concessional contributions cap checker. See if your before-tax super contributions are within the annual limit for FY 2025-26."
 };
 
 const faqs: FAQ[] = [
@@ -60,28 +60,29 @@ export default function ConcessionalCapPage() {
   return (
     <>
       <JsonLdFaq faqs={faqs} />
-      <h1>Concessional Contributions Cap Australia</h1>
+      <h1>Concessional Contributions Cap</h1>
+      <p className="page-intro">
+        Check whether your before-tax super contributions (employer SG + salary sacrifice + personal deductible)
+        are within the annual ${activeRules.contributionCaps.concessional.toLocaleString()} limit.
+      </p>
       <ConcessionalCapChecker rules={activeRules} />
       <section className="card">
+        <h2>What Counts Towards the Cap</h2>
         <p>
-          This concessional contributions cap page explains how annual before-tax super limits work in Australia and
-          provides a practical checker for quick scenario testing. Enter salary, salary sacrifice and personal
-          deductible contributions to estimate total concessional contributions against the current annual cap. The
-          page is designed to clarify what counts towards the cap, how excess contributions can affect tax outcomes and
-          why regular in-year monitoring matters. It uses rules for the selected financial year and a transparent
-          calculation method. The content is general information, not financial advice, and should be checked against
-          current ATO guidance.
+          Concessional contributions include your employer&apos;s compulsory Super Guarantee, any salary sacrifice
+          you arrange through payroll, and personal contributions you claim as a tax deduction. All three are added
+          together and compared against the annual cap. The visual bar above shows how much of your cap you&apos;ve used.
         </p>
         <p>
-          Last updated: <strong>{activeRules.lastUpdated}</strong>
+          <span className="updated-badge">Updated {activeRules.lastUpdated}</span>
         </p>
       </section>
       <section className="card">
-        <h2>How to use this checker</h2>
+        <h2>How to Use This Checker</h2>
         <p>
           Start with your expected base salary and add any salary sacrifice and deductible personal contributions. The
           tool then compares your total concessional estimate with the annual cap and highlights the remaining amount
-          or estimated overage. This warning is informational and does not replace professional tax advice.
+          or estimated overage.
         </p>
       </section>
       <FaqSection faqs={faqs} />
