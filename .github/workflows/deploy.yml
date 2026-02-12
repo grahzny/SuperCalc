@@ -27,6 +27,7 @@ jobs:
       - run: npm test
       - run: npm run build
         env:
+          PAGES_BASE_PATH: /SuperCalc
           NEXT_PUBLIC_ADSENSE_CLIENT: ${{ secrets.ADSENSE_CLIENT }}
       - uses: actions/upload-pages-artifact@v3
         with:
