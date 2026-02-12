@@ -70,32 +70,76 @@ export function Division293Calculator({ rules }: Props) {
     setPerson((prev) => ({ ...prev, [key]: Number.isFinite(value) ? value : 0 }));
   };
 
+  const isAboveThreshold = result.excess > 0;
+
   return (
     <section className="card">
-      <h2>Division 293 estimator</h2>
-      <div className="grid-3">
-        <NumberInput label="Salary base" value={person.salaryBase} onChange={(value) => update("salaryBase", value)} />
-        <NumberInput label="Bonus" value={person.bonus} onChange={(value) => update("bonus", value)} />
-        <NumberInput label="Salary sacrifice" value={person.salarySacrifice} onChange={(value) => update("salarySacrifice", value)} />
-        <NumberInput label="Personal deductible" value={person.personalDeductible} onChange={(value) => update("personalDeductible", value)} />
-        <NumberInput label="RSU income" value={person.rsuIncome} onChange={(value) => update("rsuIncome", value)} />
-        <NumberInput label="Rental net income" value={person.rentalNetIncome} onChange={(value) => update("rentalNetIncome", value)} />
-        <NumberInput label="Dividends" value={person.dividends} onChange={(value) => update("dividends", value)} />
-        <NumberInput label="Interest" value={person.interest} onChange={(value) => update("interest", value)} />
-        <NumberInput label="Other taxable income" value={person.otherTaxableIncome} onChange={(value) => update("otherTaxableIncome", value)} />
+      <h2>Division 293 Estimator</h2>
+      <p className="tiny" style={{ marginTop: "-0.5rem", marginBottom: "1rem" }}>
+        Division 293 is an extra 15% tax on some super contributions if your income plus contributions exceed $250,000.
+      </p>
+
+      <div style={{ marginBottom: "0.75rem" }}>
+        <h3 style={{ fontSize: "0.88rem", margin: "0 0 0.5rem", color: "var(--color-text-secondary)" }}>Income &amp; contributions</h3>
+        <div className="grid-3">
+          <NumberInput label="Base salary" prefix="$" value={person.salaryBase} onChange={(value) => update("salaryBase", value)} />
+          <NumberInput label="Annual bonus" prefix="$" value={person.bonus} onChange={(value) => update("bonus", value)} />
+          <NumberInput label="Salary sacrifice" prefix="$" value={person.salarySacrifice} onChange={(value) => update("salarySacrifice", value)} hint="Pre-tax contributions from your pay" />
+        </div>
       </div>
-      <div className="results">
-        <p>Concessional contributions (CC): {formatCurrency(result.cc)}</p>
-        <p>Income base: {formatCurrency(result.incomeBase)}</p>
-        <p>Combined income + CC: {formatCurrency(result.combined)}</p>
-        <p>Excess over threshold: {formatCurrency(result.excess)}</p>
-        <p>Division 293 taxable amount: {formatCurrency(result.div293Taxable)}</p>
-        <p>
-          Standard concessional contributions tax (15%): <strong>{formatCurrency(result.contributionsTax)}</strong>
-        </p>
-        <p>
-          Additional Division 293 tax (15%): <strong>{formatCurrency(result.div293Tax)}</strong>
-        </p>
+
+      <details className="section-group">
+        <summary className="section-group-header">
+          More income &amp; deductions
+          <span className="section-group-chevron" aria-hidden="true">&#9660;</span>
+        </summary>
+        <div className="section-group-body">
+          <div className="grid-3">
+            <NumberInput label="Personal deductible" prefix="$" value={person.personalDeductible} onChange={(value) => update("personalDeductible", value)} hint="Contributions you claim as a tax deduction" />
+            <NumberInput label="RSU / equity income" prefix="$" value={person.rsuIncome} onChange={(value) => update("rsuIncome", value)} />
+            <NumberInput label="Net rental income" prefix="$" value={person.rentalNetIncome} onChange={(value) => update("rentalNetIncome", value)} />
+            <NumberInput label="Dividends" prefix="$" value={person.dividends} onChange={(value) => update("dividends", value)} />
+            <NumberInput label="Interest income" prefix="$" value={person.interest} onChange={(value) => update("interest", value)} />
+            <NumberInput label="Other taxable income" prefix="$" value={person.otherTaxableIncome} onChange={(value) => update("otherTaxableIncome", value)} />
+          </div>
+        </div>
+      </details>
+
+      {/* Results */}
+      <div className="results" style={{ marginTop: "1rem" }}>
+        <div className="result-row">
+          <span className="result-label">Concessional contributions (CC)</span>
+          <span className="result-value">{formatCurrency(result.cc)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Taxable income</span>
+          <span className="result-value">{formatCurrency(result.incomeBase)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Combined income + CC</span>
+          <span className="result-value">{formatCurrency(result.combined)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Excess over $250,000 threshold</span>
+          <span className={`result-value ${isAboveThreshold ? "cap-exceeded" : ""}`}>{formatCurrency(result.excess)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Division 293 taxable amount</span>
+          <span className="result-value">{formatCurrency(result.div293Taxable)}</span>
+        </div>
+      </div>
+
+      <div className="result-highlight">
+        <div className="result-row">
+          <span className="result-label">Standard contributions tax (15%)</span>
+          <span className="result-value">{formatCurrency(result.contributionsTax)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Additional Division 293 tax (15%)</span>
+          <span className="result-value" style={{ color: isAboveThreshold ? "var(--color-warn)" : undefined }}>
+            {formatCurrency(result.div293Tax)}
+          </span>
+        </div>
       </div>
     </section>
   );

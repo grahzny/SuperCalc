@@ -22,6 +22,9 @@ export function NonConcessionalCapChecker({ rules }: Props) {
     rules
   );
 
+  const usedPercent = cap.capUsed > 0 ? Math.min(100, Math.max(0, (afterTaxContribution / cap.capUsed) * 100)) : 0;
+  const isExceeded = cap.remaining < 0;
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setAfterTaxContribution(parseNum(params, "ncc_afterTaxContribution", 10000));
@@ -39,35 +42,70 @@ export function NonConcessionalCapChecker({ rules }: Props) {
 
   return (
     <section className="card">
-      <h2>Non-concessional cap checker</h2>
-      <NumberInput label="After-tax contributions (annual)" value={afterTaxContribution} onChange={setAfterTaxContribution} />
-      <NumberInput
-        label="Age at start of financial year"
-        value={ageAtStartOfFinancialYear}
-        min={0}
-        step={1}
-        onChange={setAgeAtStartOfFinancialYear}
-      />
-      <NumberInput
-        label="Total super balance at previous 30 June"
-        value={totalSuperBalance}
-        min={0}
-        step={1000}
-        onChange={setTotalSuperBalance}
-      />
-      <p>Annual NCC cap: {formatCurrency(cap.annualCap)}</p>
-      <p>Modeled cap available this year: {formatCurrency(cap.capUsed)}</p>
-      {cap.bringForwardEligible && <p>Bring-forward modeled: yes ({cap.capMultiplier}x annual cap).</p>}
-      {!cap.bringForwardEligible && <p>Bring-forward modeled: no.</p>}
-      <p>
-        Status:{" "}
-        {cap.remaining >= 0 ? (
-          <strong>{formatCurrency(cap.remaining)} remaining this year</strong>
-        ) : (
-          <strong className="warning">{formatCurrency(cap.excess)} above modeled cap</strong>
-        )}
+      <h2>Non-concessional Cap Checker</h2>
+      <p className="tiny" style={{ marginTop: "-0.5rem", marginBottom: "1rem" }}>
+        Check your after-tax contribution room, including bring-forward eligibility based on your age and total super balance.
       </p>
-      <p className="tiny">
+
+      <div className="grid-3">
+        <NumberInput label="After-tax contributions" prefix="$" hint="Annual after-tax amount" value={afterTaxContribution} onChange={setAfterTaxContribution} />
+        <NumberInput
+          label="Age at start of FY"
+          suffix="years"
+          value={ageAtStartOfFinancialYear}
+          min={0}
+          step={1}
+          onChange={setAgeAtStartOfFinancialYear}
+        />
+        <NumberInput
+          label="Total super balance"
+          prefix="$"
+          hint="Balance at previous 30 June"
+          value={totalSuperBalance}
+          min={0}
+          step={1000}
+          onChange={setTotalSuperBalance}
+        />
+      </div>
+
+      {/* Results */}
+      <div className="results" style={{ marginTop: "0.5rem" }}>
+        <div className="result-row">
+          <span className="result-label">Annual NCC cap</span>
+          <span className="result-value">{formatCurrency(cap.annualCap)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Cap available this year</span>
+          <span className="result-value">{formatCurrency(cap.capUsed)}</span>
+        </div>
+        <div className="result-row">
+          <span className="result-label">Bring-forward eligible</span>
+          <span className="result-value">{cap.bringForwardEligible ? `Yes (${cap.capMultiplier}x annual cap)` : "No"}</span>
+        </div>
+      </div>
+
+      {/* Visual cap bar */}
+      <div className="cap-status">
+        <div className="cap-labels">
+          <span>Contribution: {formatCurrency(afterTaxContribution)}</span>
+          <span>Cap: {formatCurrency(cap.capUsed)}</span>
+        </div>
+        <div className="cap-bar-container">
+          <div
+            className={`cap-bar ${isExceeded ? "cap-bar-warn" : "cap-bar-ok"}`}
+            style={{ width: `${Math.min(usedPercent, 100)}%` }}
+          />
+        </div>
+        <p style={{ margin: "0.5rem 0 0", fontSize: "0.92rem" }}>
+          {isExceeded ? (
+            <span className="cap-exceeded">{formatCurrency(cap.excess)} above cap</span>
+          ) : (
+            <span className="cap-ok">{formatCurrency(cap.remaining)} remaining this year</span>
+          )}
+        </p>
+      </div>
+
+      <p className="tiny" style={{ marginTop: "0.75rem" }}>
         This models one-year bring-forward eligibility from age and total-balance tiers. It does not track existing
         bring-forward periods already triggered in prior years.
       </p>

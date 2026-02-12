@@ -7,9 +7,9 @@ import "./globals.css";
 export const dynamic = "error";
 
 export const metadata: Metadata = {
-  title: "Australian Superannuation Calculators",
+  title: "SuperCalc - Australian Superannuation Calculators",
   description:
-    "Static SEO-friendly Australian superannuation calculators covering projections, caps, Super Guarantee and Division 293."
+    "Free Australian superannuation calculators covering projections, contribution caps, Super Guarantee and Division 293. Plan your retirement with clear, transparent tools."
 };
 
 const navLinks = [
@@ -37,18 +37,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ) : null}
         <div className="site-shell">
           <header className="site-header">
-            <div>
-              <p className="eyebrow">Australia FY 2025-26</p>
-              <h1 className="site-title">SuperCalc</h1>
-              <p className="site-subtitle">Clear super calculators with transparent rules and practical planning outputs.</p>
+            <div className="site-header-inner">
+              <div className="site-brand">
+                <div className="site-logo" aria-hidden="true">S</div>
+                <div className="site-brand-text">
+                  <p className="eyebrow">Australia FY 2025-26</p>
+                  <h1 className="site-title">
+                    <Link href="/">SuperCalc</Link>
+                  </h1>
+                </div>
+              </div>
+              <nav className="site-nav" aria-label="Main navigation">
+                {navLinks.map((link) => (
+                  <Link key={link.href} href={link.href}>
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
-            <nav className="site-nav" aria-label="Main navigation">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href}>
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
           </header>
 
           <AdSlot slot="1000000001" label="Top banner ad" className="ad-slot-banner" />
@@ -58,18 +64,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <aside className="rail" aria-label="Sponsored">
               <AdSlot slot="1000000002" label="Sidebar ad slot one" className="ad-slot-rail" />
               <AdSlot slot="1000000003" label="Sidebar ad slot two" className="ad-slot-rail" />
-              <section className="card">
-                <h2>Ad setup</h2>
-                <p className="tiny">
-                  These are fixed ad containers sized for common AdSense units. Keep them stable to improve layout
-                  shift performance and indexing quality.
-                </p>
-              </section>
             </aside>
           </div>
 
           <footer className="site-footer">
-            <p>SuperCalc planning tools. Educational information only, not personal financial advice.</p>
+            <p>SuperCalc &mdash; Free superannuation planning tools for Australians.</p>
+            <p>Educational information only, not personal financial advice.</p>
           </footer>
         </div>
       </body>

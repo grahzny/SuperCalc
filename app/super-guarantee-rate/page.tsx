@@ -8,9 +8,9 @@ import { activeRules } from "@/lib/rules";
 import type { FAQ } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "Super Guarantee Rate Australia",
+  title: "Super Guarantee Rate Australia - Employer Super Calculator",
   description:
-    "Check the Australian Super Guarantee rate and estimate annual employer super contributions with a simple calculator."
+    "Free Super Guarantee calculator. See the current SG rate and estimate your employer's annual super contribution for FY 2025-26."
 };
 
 const faqs: FAQ[] = [
@@ -51,27 +51,29 @@ export default function SuperGuaranteeRatePage() {
     <>
       <JsonLdFaq faqs={faqs} />
       <h1>Super Guarantee Rate Australia</h1>
+      <p className="page-intro">
+        See how much your employer contributes to your super. The current Super Guarantee rate
+        is {(activeRules.superGuarantee.rate * 100).toFixed(0)}% of your ordinary time earnings.
+      </p>
       <SuperGuaranteeMiniCalculator rules={activeRules} />
       <section className="card">
+        <h2>About the Super Guarantee</h2>
         <p>
-          This Super Guarantee rate page explains the current compulsory employer super contribution setting in
-          Australia and provides a fast estimate tool for yearly SG amounts. Enter salary and optional bonus to view
-          indicative employer contributions at the current SG rate. The page is designed to support practical planning
-          around contribution caps and retirement savings expectations, while keeping assumptions clear and transparent.
-          It does not replace payroll interpretation or legal advice, particularly where maximum contribution base
-          limits or complex employment arrangements apply. Use it as a general guide, then confirm details with ATO and
-          payroll sources before making decisions.
+          The Super Guarantee (SG) is the compulsory minimum contribution your employer pays into your super fund.
+          For FY {activeRules.financialYear}, the rate is {(activeRules.superGuarantee.rate * 100).toFixed(0)}% of ordinary
+          time earnings. Enter your salary and optional bonus above to see an estimate of your annual employer super contribution.
         </p>
         <p>
-          Last updated: <strong>{activeRules.lastUpdated}</strong>
+          <span className="updated-badge">Updated {activeRules.lastUpdated}</span>
         </p>
       </section>
       <section className="card">
-        <h2>Using the SG estimate</h2>
+        <h2>Things to Keep in Mind</h2>
         <p>
           Compare the salary-only and salary-plus-bonus outputs to understand how bonus treatment can change annual SG
           totals. Then check that expected concessional contributions remain within your annual cap when combined with
-          other before-tax super amounts.
+          other before-tax super amounts. Employers may also have a maximum contribution base that limits SG on
+          very high earnings.
         </p>
       </section>
       <FaqSection faqs={faqs} />

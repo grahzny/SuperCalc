@@ -5,7 +5,7 @@ type Props = {
   faqs: FAQ[];
 };
 
-export function FaqSection({ title = "Frequently asked questions", faqs }: Props) {
+export function FaqSection({ title = "Frequently Asked Questions", faqs }: Props) {
   return (
     <section aria-labelledby="faq-title" className="card">
       <h2 id="faq-title">{title}</h2>

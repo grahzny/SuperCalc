@@ -8,9 +8,9 @@ import { activeRules } from "@/lib/rules";
 import type { FAQ } from "@/lib/types";
 
 export const metadata: Metadata = {
-  title: "Division 293 Calculator Australia",
+  title: "Division 293 Calculator Australia - Extra Super Tax Estimator",
   description:
-    "Estimate Australian Division 293 tax using FY 2025-26 thresholds, income inputs and concessional contribution settings."
+    "Free Division 293 tax calculator. Estimate if you owe extra tax on super contributions using FY 2025-26 thresholds."
 };
 
 const faqs: FAQ[] = [
@@ -71,22 +71,24 @@ export default function Division293Page() {
     <>
       <JsonLdFaq faqs={faqs} />
       <h1>Division 293 Calculator Australia</h1>
+      <p className="page-intro">
+        Find out if you may owe extra tax on your super contributions. Division 293 applies an additional 15% tax
+        when your income plus concessional contributions exceed $250,000.
+      </p>
       <Division293Calculator rules={activeRules} />
       <section className="card">
+        <h2>What This Estimator Shows</h2>
         <p>
-          This Division 293 calculator estimates potential additional tax on concessional super contributions under
-          current Australian settings. Enter salary and other taxable income components, then include employer and
-          voluntary concessional amounts to test your likely exposure against the $250,000 threshold. The output shows
-          standard 15% contributions tax and additional Division 293 tax separately so you can understand the layered
-          effect clearly. Use this as a scenario tool when planning contribution levels across the year. It does not
-          replace an ATO assessment or personal professional tax advice.
+          Enter your salary, bonus and other income sources to see whether your combined income exceeds the
+          Division 293 threshold. The tool shows both the standard 15% contributions tax and any additional
+          Division 293 tax separately, so you can understand the full impact on your super contributions.
         </p>
         <p>
-          Last updated: <strong>{activeRules.lastUpdated}</strong>
+          <span className="updated-badge">Updated {activeRules.lastUpdated}</span>
         </p>
       </section>
       <section className="card">
-        <h2>How this estimator helps</h2>
+        <h2>How to Use This Estimator</h2>
         <p>
           Small changes in salary sacrifice and bonus levels can materially change Division 293 outcomes. Use the
           fields to run best-case and worst-case ranges before finalising year-end contribution decisions.

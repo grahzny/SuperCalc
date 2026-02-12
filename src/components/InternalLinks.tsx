@@ -15,7 +15,7 @@ type Props = {
 export function InternalLinks({ currentPath }: Props) {
   return (
     <section className="card">
-      <h2>Related calculators</h2>
+      <h2>Related Calculators</h2>
       <ul className="link-list">
         {links
           .filter((link) => link.href !== currentPath)
