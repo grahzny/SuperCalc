@@ -188,7 +188,7 @@ export function SuperannuationCalculator({ rules }: Props) {
     <>
       {fieldGroups.map((group) => {
         const inner = (
-          <div className={group.keys.length <= 3 ? "grid-3" : "grid-2"} style={{ marginBottom: 0 }}>
+          <div className={group.keys.length === 3 ? "grid-3" : "grid-2"} style={{ marginBottom: 0 }}>
             {group.keys.map((key) => {
               const meta = fieldMeta[key] || { label: key };
               return (

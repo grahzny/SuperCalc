@@ -1,5 +1,7 @@
 "use client";
 
+import type { FocusEvent } from "react";
+
 type Props = {
   label: string;
   value: number;
@@ -13,6 +15,8 @@ type Props = {
 
 export function NumberInput({ label, value, onChange, step = 1, min, prefix, suffix, hint }: Props) {
   const hasGroup = prefix || suffix;
+  const displayValue = Number.isFinite(value) ? value : 0;
+  const selectAll = (e: FocusEvent<HTMLInputElement>) => e.target.select();
 
   return (
     <label className="field">
@@ -24,9 +28,10 @@ export function NumberInput({ label, value, onChange, step = 1, min, prefix, suf
           <input
             type="number"
             inputMode="decimal"
-            value={Number.isFinite(value) ? value : 0}
+            value={displayValue}
             min={min}
             step={step}
+            onFocus={selectAll}
             onChange={(event) => onChange(Number(event.target.value))}
           />
           {suffix && <span className="input-suffix">{suffix}</span>}
@@ -35,9 +40,10 @@ export function NumberInput({ label, value, onChange, step = 1, min, prefix, suf
         <input
           type="number"
           inputMode="decimal"
-          value={Number.isFinite(value) ? value : 0}
+          value={displayValue}
           min={min}
           step={step}
+          onFocus={selectAll}
           onChange={(event) => onChange(Number(event.target.value))}
         />
       )}
