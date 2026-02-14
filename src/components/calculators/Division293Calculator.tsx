@@ -19,11 +19,7 @@ const initialPerson: PersonInput = {
   salarySacrifice: 10000,
   personalDeductible: 0,
   afterTaxContribution: 0,
-  rsuIncome: 0,
-  rentalNetIncome: 0,
-  dividends: 0,
-  interest: 0,
-  otherTaxableIncome: 0,
+  otherIncome: 0,
   salaryGrowth: 0.03,
   nominalReturn: 0.065,
   inflation: 0.025,
@@ -44,11 +40,7 @@ export function Division293Calculator({ rules }: Props) {
       bonus: parseNum(params, "d293_bonus", initialPerson.bonus),
       salarySacrifice: parseNum(params, "d293_salarySacrifice", initialPerson.salarySacrifice),
       personalDeductible: parseNum(params, "d293_personalDeductible", initialPerson.personalDeductible),
-      rsuIncome: parseNum(params, "d293_rsuIncome", initialPerson.rsuIncome),
-      rentalNetIncome: parseNum(params, "d293_rentalNetIncome", initialPerson.rentalNetIncome),
-      dividends: parseNum(params, "d293_dividends", initialPerson.dividends),
-      interest: parseNum(params, "d293_interest", initialPerson.interest),
-      otherTaxableIncome: parseNum(params, "d293_otherTaxableIncome", initialPerson.otherTaxableIncome)
+      otherIncome: parseNum(params, "d293_otherIncome", initialPerson.otherIncome)
     }));
   }, []);
 
@@ -58,11 +50,7 @@ export function Division293Calculator({ rules }: Props) {
       d293_bonus: person.bonus,
       d293_salarySacrifice: person.salarySacrifice,
       d293_personalDeductible: person.personalDeductible,
-      d293_rsuIncome: person.rsuIncome,
-      d293_rentalNetIncome: person.rentalNetIncome,
-      d293_dividends: person.dividends,
-      d293_interest: person.interest,
-      d293_otherTaxableIncome: person.otherTaxableIncome
+      d293_otherIncome: person.otherIncome
     });
   }, [person]);
 
@@ -88,22 +76,12 @@ export function Division293Calculator({ rules }: Props) {
         </div>
       </div>
 
-      <details className="section-group">
-        <summary className="section-group-header">
-          More income &amp; deductions
-          <span className="section-group-chevron" aria-hidden="true">&#9660;</span>
-        </summary>
-        <div className="section-group-body">
-          <div className="grid-3">
-            <NumberInput label="Personal deductible" prefix="$" value={person.personalDeductible} onChange={(value) => update("personalDeductible", value)} hint="Contributions you claim as a tax deduction" />
-            <NumberInput label="RSU / equity income" prefix="$" value={person.rsuIncome} onChange={(value) => update("rsuIncome", value)} />
-            <NumberInput label="Net rental income" prefix="$" value={person.rentalNetIncome} onChange={(value) => update("rentalNetIncome", value)} />
-            <NumberInput label="Dividends" prefix="$" value={person.dividends} onChange={(value) => update("dividends", value)} />
-            <NumberInput label="Interest income" prefix="$" value={person.interest} onChange={(value) => update("interest", value)} />
-            <NumberInput label="Other taxable income" prefix="$" value={person.otherTaxableIncome} onChange={(value) => update("otherTaxableIncome", value)} />
-          </div>
+      <div style={{ marginBottom: "0.75rem" }}>
+        <div className="grid-3">
+          <NumberInput label="Other taxable income" prefix="$" value={person.otherIncome} onChange={(value) => update("otherIncome", value)} hint="RSUs, rent, dividends, interest, etc." />
+          <NumberInput label="Personal deductible" prefix="$" value={person.personalDeductible} onChange={(value) => update("personalDeductible", value)} hint="Contributions you claim as a tax deduction" />
         </div>
-      </details>
+      </div>
 
       {/* Results */}
       <div className="results" style={{ marginTop: "1rem" }}>

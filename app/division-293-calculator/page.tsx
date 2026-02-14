@@ -27,7 +27,7 @@ const faqs: FAQ[] = [
   {
     question: "What income counts towards Division 293?",
     answer:
-      "This estimator includes salary, bonus, RSU income, net rental income, dividends, interest and other taxable income. It then adds concessional contributions to determine the combined figure used for threshold testing. Actual assessments can include further legislative detail, so this output is a planning estimate. Confirm final treatment with official ATO materials or professional advice tailored to your position."
+      "This estimator includes your employer salary, bonus and any other taxable income (such as RSUs, rental income, dividends and interest). It then adds concessional contributions to determine the combined figure used for threshold testing. Actual assessments can include further legislative detail, so this output is a planning estimate. Confirm final treatment with official ATO materials or professional advice tailored to your position."
   },
   {
     question: "Does salary sacrifice count towards Division 293?",

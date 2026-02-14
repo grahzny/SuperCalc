@@ -9,11 +9,7 @@ export type PersonInput = {
   salarySacrifice: number;
   personalDeductible: number;
   afterTaxContribution: number;
-  rsuIncome: number;
-  rentalNetIncome: number;
-  dividends: number;
-  interest: number;
-  otherTaxableIncome: number;
+  otherIncome: number;
   salaryGrowth: number;
   nominalReturn: number;
   inflation: number;

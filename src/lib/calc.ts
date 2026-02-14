@@ -17,14 +17,7 @@ export const calculateEmployerSG = (salaryBase: number, sgRate: number): number 
 export const calculateDivision293 = (person: PersonInput, rules: Rules): Division293Breakdown => {
   const employerSG = calculateEmployerSG(person.salaryBase, rules.superGuarantee.rate);
   const cc = employerSG + person.salarySacrifice + person.personalDeductible;
-  const incomeBase =
-    person.salaryBase +
-    person.bonus +
-    person.rsuIncome +
-    person.rentalNetIncome +
-    person.dividends +
-    person.interest +
-    person.otherTaxableIncome;
+  const incomeBase = person.salaryBase + person.bonus + person.otherIncome;
   const combined = incomeBase + cc;
   const excess = Math.max(0, combined - rules.division293.threshold);
   const div293Taxable = Math.min(excess, cc);
@@ -126,14 +119,7 @@ export const projectPerson = (person: PersonInput, rules: Rules): ProjectionYear
     const employerSG = calculateEmployerSG(salaryBase, rules.superGuarantee.rate);
     const concessionalContributions = employerSG + person.salarySacrifice + person.personalDeductible;
     const nonConcessionalContributions = person.afterTaxContribution;
-    const incomeBase =
-      salaryBase +
-      person.bonus +
-      person.rsuIncome +
-      person.rentalNetIncome +
-      person.dividends +
-      person.interest +
-      person.otherTaxableIncome;
+    const incomeBase = salaryBase + person.bonus + person.otherIncome;
     const combined = incomeBase + concessionalContributions;
     const excess = Math.max(0, combined - rules.division293.threshold);
     const div293Taxable = Math.min(excess, concessionalContributions);
